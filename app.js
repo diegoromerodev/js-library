@@ -2,7 +2,14 @@
 let gridSize = 3
 
 // STORE ALL BOOKS
-const myLibrary = JSON.parse(localStorage.getItem('books')) || []
+const myLibrary = JSON.parse(localStorage.getItem('books')) || [{
+    author: "Stephen King",
+    id: "ID1613043951346",
+    pages: "571",
+    read: true,
+    style: "artistic",
+    title: "The Shining"
+    }]
 
 function Book(title, author, pages = 0, read = false, style){
     this.id = "ID" + Math.round(Date.now() * 2 * Math.random())
