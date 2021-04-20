@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@300&family=Dela+Gothic+One&family=Josefin+Sans&family=Nunito&family=Raleway:ital,wght@1,700&family=Work+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arya:wght@700&display=swap');
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+:root {
+    --white: #f7f4f8;
+    --black: #07161f;
+    --earth-green: #4d7752;
+    --yellow: #f1b24c;
+    --pastel: #e9cdc0;
+    --dark-green: #465754;
+    --retro-red: #db364e;
+    --grey: #dbe1e4;
+    --book-height: 420px;
+    --book-width: 300px;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* MAIN HEADER */
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#logo {
+    font-family: "Arya";
+    font-size: 4em;
+    margin: 10px 0;
+}
+
+/* BOOK THUMBNAIL STYLING */
+
+
+.book-thumb {
+    width: var(--book-width);
+    height: var(--book-height);
+    background-color: var(--dark-green);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+}
+
+.title {
+    font-size: 3em;
+    font-family: "Raleway";
+    font-weight: bolder;
+    color: var(--white);
+}
+
+.author {
+    font-size: 0.8em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: var(--white);
+}
+
+/* BOOK THUMB CLASSES */
+.artistic {
+    background-color: var(--retro-red);
+}
+.artistic .title {
+    color: var(--black);
+    transform: rotate(-25deg);
+    font-size: 2em;
+    font-family: "Dela Gothic One";
+    text-transform: uppercase;
+}
+.artistic .author {
+    position: relative;
+    transform: translate(0, 500%);
+    font-family: "Work Sans";
+    color: var(--black);
+}
+
+.peaceful {
+    background-color: var(--white);
+    height: 100%;
+    border: 10px solid var(--dark-green);
+}
+.peaceful .title {
+    color: var(--black);
+    font-size: 2em;
+    font-family: "Nunito";
+}
+.peaceful .author {
+    position: relative;
+    bottom: 0;
+    font-family: "Josefin Sans";
+    color: var(--black);
+}
+
+.joy {
+    background-color: var(--earth-green);
+    display: flex;
+    flex-direction: column-reverse;
+}
+.joy .title {
+    color: var(--pastel);
+    font-size: 2em;
+    font-family: "Work Sans";
+}
+.joy .author {
+    position: relative;
+    font-family: "Josefin Sans";
+    color: var(--pastel);
+    margin-top: 50px;
+}
+
+.sunshine {
+    background: linear-gradient(0, var(--yellow), var(--pastel));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sunshine .title {
+    color: var(--black);
+    font-size: 3em;
+    font-family: "Antonio";
+    text-transform: uppercase;
+}
+.sunshine .author {
+    position: relative;
+    font-family: "Josefin Sans";
+    color: var(--black);
+    margin-top: 5px;
+}
+
+
+
+/* BOOKS PARENT */
+#all-books {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+/* BOOK INFO */
+
+.book-info {
+    text-align: center;
+}
+
+.single-book {
+    width: var(--book-width);
+    height: var(--book-height);
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    margin: 10px;
+    word-break: break-word;
+}
+
+.book-options {
+    width: var(--book-width);
+    height: var(--book-height);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    transform: translate(0,0);
+    opacity: 0;
+    width: 100;
+    background-color: var(--white);
+    padding: 15px;
+}
+
+.single-book:hover .book-options {
+    transform: translate(0, -100%);
+    opacity: 0.9;
+}
+
+/* BLANK BOOK */
+.single-book.blank-book {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--grey);
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(0,0,0,0.2);
+    transition: all 0.4s ease-in-out;
+}
+
+.single-book.blank-book:hover {
+    box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+.blank-book i {
+    color: var(--black);
+    opacity: 0.1;
+    font-size: 5em;
+}
+
+/* BUTTONS */
+.action-btn {
+    display: flex;
+}
+
+.btn {
+    width: 1em;
+    height: 1em;
+    padding: 2em;
+    background: transparent;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid var(--black);
+    cursor: pointer;
+    margin: 5px;
+}
+
+.btn:hover {
+    color: var(--white);
+    background-color: var(--black);
+}
+
+.btn-read { border-color: var(--earth-green); color: var(--earth-green); }
+.btn-read:hover { background-color: var(--earth-green); }
+
+.btn-del { border-color: var(--retro-red); color: var(--retro-red); }
+.btn-del:hover { background-color: var(--retro-red); }
+
+.read {
+    position: relative;
+    bottom: var(--book-height);
+    display: block;
+    margin-bottom: -38px;
+    text-align: right;
+    padding: 10px 20px;
+    border-radius: 2px;
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.hidden {
+    opacity: 0;
+    display: none;
+    z-index: -1;
+}
+
+/* BOOK CREATION FORM */
+#create-book {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+#create-book::before {
+    content: " ";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--black);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+#create-book + main {
+    transition: all 0.4s ease-in-out;
+    filter: blur(10px);
+}
+
+#create-book.hidden + main {
+    filter: blur(0);
+}
+
+#create-book.hidden {
+    display: none;
+    z-index: -1;
+}
+
+#create-book form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--white);
+    padding: 1rem 1rem;
+    box-shadow: 0 0 30px rgba(0,0,0,0.2);
+    width: 800px;
+    max-width: 800px;
+}
+
+form input {
+    width: 100%;
+    height: 40px;
+    margin: 10px;
+    font-size: 1.4em;
+    padding: 5px 10px;
+    font-family: monospace;
+    background-color: transparent;
+    border-bottom: 2px solid var(--black);
+}
+
+form input:focus {
+    outline: none;
+}
+
+form .btn, .btn.btn-add {
+    border-radius: 2em;
+    width: unset;
+    font-size: 1em;
+    padding: 1.2em 1em;
+}
+
+#interactivity {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#read {
+    margin-right: 50px;
+    width: 20px;
+}

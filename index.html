@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+        <link href="styles.css" type="text/css" rel="stylesheet">
+        <title>Rata Books</title>
+    </head>
+    <body>
+        <div id="create-book" class="hidden">
+            <form name="book-creation-form">
+                <h2>Add a new book</h2>
+                <input type="text" placeholder="Book title" id="title" maxlength="50">
+                <input type="text" placeholder="Book author" id="author" maxlength="45">
+                <input type="number" placeholder="Number of pages" id="pages" maxlength="7">
+                <div id="interactivity">
+                    <label for="read">Read?: </label>
+                    <input type="checkbox" id="read">
+                    <button type="submit" id="submit" class="btn">Add to library</button>
+                    <button id="cancel" class="btn btn-del">Cancel</button>
+                </div>
+            </form>
+        </div>
+        <header id="header">
+            <h1 id="logo">RATA BOOKS</h1>
+            <button class="btn btn-add" id="create-btn">Add new book</button>
+        </header>
+        <main id="all-books">
+        </main>
+        <script src="app.js"></script>
+    </body>
+</html>
