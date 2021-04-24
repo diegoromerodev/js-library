@@ -11,13 +11,15 @@ const myLibrary = JSON.parse(localStorage.getItem('books')) || [{
     title: "The Shining"
     }]
 
-function Book(title, author, pages = 0, read = false, style){
-    this.id = "ID" + Math.round(Date.now() * 2 * Math.random())
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-    this.style = style
+class Book {
+    constructor (title, author, pages = 0, read = false, style){
+        this.id = "ID" + Math.round(Date.now() * 2 * Math.random())
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
+        this.style = style
+    }
 }
 
 function toggleRead(id){
