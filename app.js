@@ -1,15 +1,30 @@
+// Instance of FIRESTORE
+let db = firebase.firestore();
+
 // responsive grid default
 let gridSize = 3
 
 // STORE ALL BOOKS
-const myLibrary = JSON.parse(localStorage.getItem('books')) || [{
-    author: "Stephen King",
-    id: "ID1613043951346",
-    pages: "571",
-    read: true,
-    style: "artistic",
-    title: "The Shining"
-    }]
+const myLibrary = {}
+myLibrary['data'] = []
+const fireQuery = db.collection("books").doc("library")
+
+
+fireQuery.get().then((doc) => {
+    if (doc.exists){
+        myLibrary.data = doc.data().data        
+    }
+    else {
+        fireQuery.set({data: []})
+    }
+});
+
+// LISTEN FOR FIRESTORE CHANGES
+fireQuery.onSnapshot((doc) => {
+    myLibrary.data = doc.data().data
+    createBooks(myLibrary.data)
+    createBlankBooks(myLibrary.data.length % gridSize)
+})
 
 class Book {
     constructor (title, author, pages = 0, read = false, style){
@@ -23,27 +38,29 @@ class Book {
 }
 
 function toggleRead(id){
-    const book = myLibrary.find(el => el.id === id)
+    const book = myLibrary.data.find(el => el.id === id)
     book.read = !book.read
     if (book.read){
         document.querySelector(`#${id} span`).classList.remove('hidden')
     } else {
         document.querySelector(`#${id} span`).classList.add('hidden')
     }
-    localStorage.setItem('books', JSON.stringify(myLibrary))
+    fireQuery.set(myLibrary)
 }
 
-function addBookToLibrary(book) {
-    myLibrary.push(book)
-    createBooks(myLibrary)
-    if (myLibrary.length % gridSize) createBlankBooks(myLibrary.length % gridSize)
+async function addBookToLibrary(book) {
+    myLibrary.data.push(Object.assign({}, book))
+    await fireQuery.set(myLibrary);
+    createBooks(myLibrary.data)
+    setGridSize()
 }
 
-function deleteBook(id) {
-    const bookToDelete = myLibrary.findIndex(el => el.id === id)
-    myLibrary.splice(bookToDelete, 1)
-    createBooks(myLibrary)
-    if (myLibrary.length % gridSize) createBlankBooks(myLibrary.length % gridSize)
+async function deleteBook(id) {
+    const bookToDelete = myLibrary.data.findIndex(el => el.id === id)
+    myLibrary.data.splice(bookToDelete, 1)
+    await fireQuery.set(myLibrary);
+    createBooks(myLibrary.data)
+    setGridSize()
 }
 
 // SELECT INPUT FROM FIELDS
@@ -71,7 +88,7 @@ document.querySelector('#cancel').addEventListener('click', (e) => {
 submitBtn.onclick = function(e) {
     e.preventDefault()
     // check if empty submit
-    if (!titleField.value || !authorField.value) return;
+    if (!titleField.checkValidity() || authorField.validity.valueMissing) return;
     // call book creator with input values
     const newBook = new Book(titleField.value, authorField.value, pagesField.value, readBool.checked, pickStyle())
     addBookToLibrary(newBook)
@@ -99,7 +116,6 @@ function pickStyle() {
 
 // CREATE NEW SINGLE BOOK HTML STRUCTURE
 function createBooks(arr) {
-    localStorage.setItem('books', JSON.stringify(arr))
     booksParent.innerHTML = ''
     for (let book of arr){
         const {id, title, author, pages, read, style} = book
@@ -138,6 +154,7 @@ function createBooks(arr) {
 //addBookToLibrary(new Book("The Shining", "Stephen King", 925, true, 'artistic'))
 
 function createBlankBooks(amount){
+    if (!amount) return;
     for (let i = 0; i < gridSize - amount; i++){
         const singleBook = `
         <div class="single-book blank-book">
@@ -156,17 +173,17 @@ function createBlankBooks(amount){
 function setGridSize() {
     if(window.innerWidth < 1000){
         gridSize = 2
-        createBooks(myLibrary)
-        createBlankBooks(myLibrary.length % 2)
+        createBooks(myLibrary.data)
+        createBlankBooks(myLibrary.data.length % 2)
     } else {
         gridSize = 3
-        createBooks(myLibrary)
-        createBlankBooks(myLibrary.length % 3)
+        createBooks(myLibrary.data)
+        createBlankBooks(myLibrary.data.length % 3)
     }
 }
 
 window.addEventListener('resize', setGridSize)
 setGridSize()
 
-createBooks(myLibrary)
-if(myLibrary.length) createBlankBooks(myLibrary.length % gridSize);
+createBooks(myLibrary.data)
+if(myLibrary.data.length) createBlankBooks(myLibrary.data.length % gridSize);

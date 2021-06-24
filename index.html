@@ -9,9 +9,9 @@
         <div id="create-book" class="hidden">
             <form name="book-creation-form">
                 <h2>Add a new book</h2>
-                <input type="text" placeholder="Book title" id="title" maxlength="50">
-                <input type="text" placeholder="Book author" id="author" maxlength="45">
-                <input type="number" placeholder="Number of pages" id="pages" maxlength="7">
+                <input type="text" placeholder="Book title" id="title" required maxlength="50">
+                <input type="text" placeholder="Book author" id="author" required maxlength="45">
+                <input type="number" placeholder="Number of pages" id="pages" required maxlength="7">
                 <div id="interactivity">
                     <label for="read">Read?: </label>
                     <input type="checkbox" id="read">
@@ -26,6 +26,29 @@
         </header>
         <main id="all-books">
         </main>
+        <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+        
+        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+        
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyC2ImtP6F70Cvux0HG2ZzfN3lKuFIFIKbk",
+                authDomain: "js-library-f9d67.firebaseapp.com",
+                projectId: "js-library-f9d67",
+                storageBucket: "js-library-f9d67.appspot.com",
+                messagingSenderId: "93684857864",
+                appId: "1:93684857864:web:8b34b0d09ad6ecaad8a5bd"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+        </script>
         <script src="app.js"></script>
     </body>
 </html>
